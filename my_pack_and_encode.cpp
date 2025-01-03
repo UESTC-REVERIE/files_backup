@@ -29,18 +29,8 @@ void my_packup(std::string target_folder, std::vector <std::string> cho,const ch
         RemoveDirectory(stringToLPCWSTR(temp_folder));
         break;
 
-    case 3:  //tar.lz
-        CreateDirectory(stringToLPCWSTR(temp_folder), NULL);
-        for (auto path : cho)
-            file_to_folder(path, temp_folder);
-        my_tar(temp_folder, (std::string)target_folder + "\\" + filename + ".tar");
-        removeDir(temp_folder);
-        RemoveDirectory(stringToLPCWSTR(temp_folder));
-        my_pack((std::string)target_folder + "\\" + filename + ".tar", (std::string)target_folder + "\\" + filename + ".tar.lz");
-        remove(((std::string)target_folder + "\\" + filename + ".tar").c_str());
-        break;
 
-    case 4:  //tar.aes
+    case 3:  //tar.aes
         CreateDirectory(stringToLPCWSTR(temp_folder), NULL);
         for (auto path : cho)
             file_to_folder(path, temp_folder);
@@ -51,18 +41,6 @@ void my_packup(std::string target_folder, std::vector <std::string> cho,const ch
         remove(((std::string)target_folder + "\\" + filename + ".tar").c_str());
         break;
 
-    case 5:  //tar.aes.lz
-        CreateDirectory(stringToLPCWSTR(temp_folder), NULL);
-        for (auto path : cho)
-            file_to_folder(path, temp_folder);
-        my_tar(temp_folder, (std::string)target_folder + "\\" + filename + ".tar");
-        removeDir(temp_folder);
-        RemoveDirectory(stringToLPCWSTR(temp_folder));
-        my_pack((std::string)target_folder + "\\" + filename + ".tar", target_folder + "\\" + filename + ".tar.lz");
-        remove(((std::string)target_folder + "\\" + filename + ".tar").c_str());
-        my_encode((std::string)target_folder + "\\" + filename + ".tar.lz", (std::string)target_folder + "\\" + filename + ".tar.lz.aes", key, key_mode);
-        remove(((std::string)target_folder + "\\" + filename + ".tar.lz").c_str());
-        break;
 
     default:
         break;

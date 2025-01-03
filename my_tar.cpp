@@ -206,13 +206,11 @@ bool my_Tar::tar(const char* src_, const char* dst_) {
 	return true;
 }
 
-bool my_Tar::tar_handle(std::ofstream& out, std::string& path, std::string& prefix)
-{
-	//文件句柄，win10用long long，win7用long
+bool my_Tar::tar_handle(std::ofstream& out, std::string& path, std::string& prefix) {
+	// 文件句柄，win10用long long，win7用long
 	long long hFile = 0;
-	//文件信息
+	// 文件信息
 	struct _finddata_t fileinfo;
-
 
 	std::string p;
 	if ((hFile = _findfirst(p.assign(path).append(prefix).append("/*").c_str(), &fileinfo)) != -1) {
@@ -223,20 +221,25 @@ bool my_Tar::tar_handle(std::ofstream& out, std::string& path, std::string& pref
 
 				memset(buf, 0, block_size);
 
+				// 设置当前文件的 POSIX Header
 				set_posix_header(path, p.assign(prefix).append("/").append(fileinfo.name), buf);
-				out.write((char*)buf, 512);
-			}
-			//如果是目录,迭代之 //如果不是,加入列表
-			if ((fileinfo.attrib & _A_SUBDIR)) {
-				if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0) {
-					tar_handle(out, path, p.assign(prefix).append("/").append(fileinfo.name));
+				out.write((char*)buf, 512); // 写入文件头部
+
+				// 如果是目录，递归处理
+				if ((fileinfo.attrib & _A_SUBDIR)) {
+					if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0) {
+						tar_handle(out, path, p.assign(prefix).append("/").append(fileinfo.name));
+					}
 				}
-			}
-			else {
-				copy(out, p.assign(path).append(prefix).append("/").append(fileinfo.name).c_str());
-				int k = fileinfo.size % 512;
-				for (int i = k; i < 512; i++) {
-					out.put('\0');
+				else {
+					// 如果是文件，复制文件内容到 tar
+					copy(out, p.assign(path).append(prefix).append("/").append(fileinfo.name).c_str());
+
+					// 填充剩余的空间
+					int k = fileinfo.size % 512;
+					for (int i = k; i < 512; i++) {
+						out.put('\0');
+					}
 				}
 			}
 		} while (_findnext(hFile, &fileinfo) == 0);

@@ -253,30 +253,12 @@ void QtBackupWindow::onMode3Toggled(bool isChecked) {
     if (isChecked == true) {
         mode_flag = 3;
         label3->setVisible(true);
-        //label4->setVisible(true);
         key_txt->setVisible(true);
-        //aes128_b->setVisible(true);
-        //aes192_b->setVisible(true);
-        //aes256_b->setVisible(true);
-        //aes_mode_group->setStyleSheet("QGroupBox {border: 0;}");
-        //aes_mode_group->setTitle("aes key mode");
+
     }
 }
 
-//void QtBackupWindow::onAes128Toggled(bool isChecked) {
-//    if (isChecked == true)
-//        aes_flag = 1;
-//}
-//
-//void QtBackupWindow::onAes192Toggled(bool isChecked) {
-//    if (isChecked == true)
-//        aes_flag = 2;
-//}
-//
-//void QtBackupWindow::onAes256Toggled(bool isChecked) {
-//    if (isChecked == true)
-//        aes_flag = 3;
-//}
+
 
 void QtBackupWindow::choose_folder() {  //ÎÄ¼þ¼Ð
 
