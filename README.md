@@ -20,5 +20,25 @@
 
 - OS：Windows
 - 开发：Visual Studio 2022, CMake, C++
-- 依赖：[<u>OpenSSL</u>](http://slproweb.com/products/Win32OpenSSL.html)、[<u>Qt5及以上版本</u>](https://download.qt.io/archive/qt/)
+- 依赖：[<u>OpenSSL</u>](http://slproweb.com/products/Win32OpenSSL.html)、[<u>Qt6及以上版本</u>](https://download.qt.io/archive/qt/)
+
+## 运行
+
+> [!CAUTION]
+>
+> 在build之前需要确保安装CMake, OpenSSL, Qt6
+
+提供了build.bat，windows用户直接双击运行。
+
+或者也可以依次执行：
+
+```bat
+cd build
+cmake ..
+cmake --build .
+```
+
+
+
+
 
