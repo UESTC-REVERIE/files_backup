@@ -19,25 +19,25 @@ QtBackupWindow::QtBackupWindow(QWidget* parent)
 
     // 文件夹按钮
     folder_b = new QPushButton(this);
-    folder_b->setText("choose folder");
+    folder_b->setText("Destination Folder: ");
 
     // 文件按钮
     file_b = new QPushButton(this);
-    file_b->setText("choose files");
+    file_b->setText("Target Files: ");
 
     // 执行按钮
     pack_b = new QPushButton(this);
-    pack_b->setText("pack up");
+    pack_b->setText("Done");
 
     // back按钮
     back_b = new QPushButton(this);
-    back_b->setText("back");
+    back_b->setText("Back");
 
     // 文件夹Label
     label = new QLabel(this);
     label->setStyleSheet("color: black; font-size: 15px;");
     label->setAlignment(Qt::AlignLeft);
-    label->setText("save to folder: ");
+    label->setText("Destination Folder: ");
     // 不显示黑框
     label->setStyleSheet("QLabel { background-color: transparent; color: black; }");
     label->setFrameShape(QFrame::NoFrame);  // 去除黑框
@@ -46,7 +46,7 @@ QtBackupWindow::QtBackupWindow(QWidget* parent)
     label2 = new QLabel(this);
     label2->setStyleSheet("color: black; font-size: 12px;");
     label2->setAlignment(Qt::AlignLeft);
-    label2->setText("files choosed: ");
+    label2->setText("Target Files: ");
     // 去掉 label2 的边框
     label2->setFrameShape(QFrame::NoFrame);
     // 滚动区域
@@ -55,10 +55,10 @@ QtBackupWindow::QtBackupWindow(QWidget* parent)
     scrolllabel2->setFrameShape(QFrame::NoFrame);
     // 分组控件
     pack_mode_group = new QGroupBox(this);
-    pack_mode_group->setTitle("pack_mode");
+    pack_mode_group->setTitle("Mode");
 
     // 单选框
-    mode1_b = new QRadioButton("only back up", pack_mode_group);
+    mode1_b = new QRadioButton("duplicate", pack_mode_group);
     mode2_b = new QRadioButton(".tar", pack_mode_group);
     mode3_b = new QRadioButton(".tar.aes", pack_mode_group);
     mode1_b->setChecked(true);
@@ -72,7 +72,7 @@ QtBackupWindow::QtBackupWindow(QWidget* parent)
 
     // AES Key 输入框
     label3 = new QLabel(this);
-    label3->setText("please set the key for .aes:");
+    label3->setText("set password for .aes files: ");
     label3->setVisible(false);
     key_txt = new QLineEdit(this);
     key_txt->setVisible(false);
@@ -80,11 +80,11 @@ QtBackupWindow::QtBackupWindow(QWidget* parent)
 
     // 定时备份分组
     scheduled_group = new QGroupBox(this);
-    scheduled_group->setTitle("scheduled back up");
+    scheduled_group->setTitle("Scheduled backup");
     scheduled_group->setCheckable(true);
     scheduled_group->setChecked(false);
-    QRadioButton* once_b = new QRadioButton("only once", scheduled_group);
-    QRadioButton* repeat_b = new QRadioButton("repeat", scheduled_group);
+    QRadioButton* once_b = new QRadioButton("Once", scheduled_group);
+    QRadioButton* repeat_b = new QRadioButton("Repeatly", scheduled_group);
     QVBoxLayout* scheduledLayout = new QVBoxLayout;
     scheduledLayout->addWidget(once_b);
     scheduledLayout->addWidget(repeat_b);
@@ -101,7 +101,7 @@ QtBackupWindow::QtBackupWindow(QWidget* parent)
     dayEdit->setValidator(new QIntValidator(dayEdit));
     dayEdit->setVisible(false);
     dayLabel = new QLabel(this);
-    dayLabel->setText("days");
+    dayLabel->setText("Days");
     dayLabel->setVisible(false);
 
     timeEdit = new QTimeEdit(this);
@@ -282,7 +282,7 @@ void QtBackupWindow::choose_folder() {  //文件夹
 
     target_folder = CSelectFolderDlg::Show();
     //b2->setText(QString::fromStdString(target_folder));
-    std::string label_txt = "folder: " + target_folder;
+    std::string label_txt = "Destination Folder: \n" + target_folder;
     label->setText(QString::fromStdString(label_txt));
 
 }
@@ -293,7 +293,7 @@ void QtBackupWindow::choose_files() {  //文件
     for (auto path : cho) {
         file_name += path + "\n";
     }
-    std::string label2_txt = "files choosed:\n" + file_name;
+    std::string label2_txt = "Target Files: \n" + file_name;
     label2->setText(QString::fromStdString(label2_txt));
     label2->adjustSize();
 }

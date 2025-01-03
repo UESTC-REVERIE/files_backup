@@ -16,19 +16,19 @@ QtRestoreWindow::QtRestoreWindow(QWidget* parent)
 
 	// 文件按钮
 	file_b = new QPushButton(this);
-	file_b->setText("choose files");
+	file_b->setText("File");
 
 	// 文件夹按钮
 	folder_b = new QPushButton(this);
-	folder_b->setText("choose folder");
+	folder_b->setText("Folder");
 
 	// 执行按钮
 	restore_b = new QPushButton(this);
-	restore_b->setText("restore");
+	restore_b->setText("Restore");
 
 	// 返回按钮
 	back_b = new QPushButton(this);
-	back_b->setText("back");
+	back_b->setText("Back");
 
 	// 关闭按钮
 	/*close_b = new QPushButton(this);
@@ -38,17 +38,17 @@ QtRestoreWindow::QtRestoreWindow(QWidget* parent)
 	label = new QLabel(this);
 	label->setStyleSheet("color: black; font-size: 15px;");
 	label->setAlignment(Qt::AlignLeft);
-	label->setText("restore to folder: ");
+	label->setText("Destination Folder: ");
 	label->setStyleSheet("QLabel{background-color:transparent;color:black;}");
 	//label->setFrameShape(QFrame::Box);
 	//label->setFixedHeight(20);
 	label->setFrameShape(QFrame::NoFrame);  // 去除黑框
-	label->setMaximumHeight(20);
+	label->setMaximumHeight(50);
 	// 文件Label
 	label2 = new QLabel(this);
 	label2->setStyleSheet("color: black; font-size: 12px;");
 	label2->setAlignment(Qt::AlignLeft);
-	label2->setText("files choosed: ");
+	label2->setText("Target File: ");
 	label2->setVisible(true);
 	label2->setFrameShape(QFrame::NoFrame);  // 去除黑框
 	//label2->setMinimumHeight(250);
@@ -94,7 +94,7 @@ QtRestoreWindow::QtRestoreWindow(QWidget* parent)
 
 void QtRestoreWindow::choose_folder() {
 	target_folder2 = CSelectFolderDlg::Show();
-	std::string label_txt = "folder: " + target_folder2;
+	std::string label_txt = "Destination Folder: \n" + target_folder2;
 	label->setText(QString::fromStdString(label_txt));
 }
 
@@ -104,7 +104,7 @@ void QtRestoreWindow::choose_files() {
 	for (auto path : cho2) {
 		file_name += path + "\n";
 	}
-	std::string label2_txt = "files choosed:\n" + file_name;
+	std::string label2_txt = "Target File: \n" + file_name;
 	label2->setText(QString::fromStdString(label2_txt));
 	label2->adjustSize();
 }
